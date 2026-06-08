@@ -4,14 +4,14 @@ export function validateRequired(value, fieldName) {
     if (value === undefined || value === null || (typeof value === "string" && value.trim() === "")) {
         throw new AppError(`Missing required ${fieldName}`, 400);
     }
-}
+};
 
 export function validateEmail(value, fieldName = "email") {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(value)) {
         throw new AppError(`Invalid ${fieldName} format`, 400);
     }
-}
+};
 
 export function validateStringLength(value, fieldName, min, max) {
     if (typeof value !== "string") {
@@ -20,7 +20,7 @@ export function validateStringLength(value, fieldName, min, max) {
     if (value.length < min || value.length > max) {
         throw new AppError(`${fieldName} must be between ${min} and ${max} characters`, 400);
     }
-}
+};
 
 export function validateUrl(url, fieldName = "url") {
     try {
@@ -31,7 +31,7 @@ export function validateUrl(url, fieldName = "url") {
     } catch {
         throw new AppError(`Ivalid ${fieldName} format`, 400);
     }
-}
+};
 
 export function parsePositiveInt(value, fieldName = "value") {
     const num = parseInt(value, 10);
@@ -39,4 +39,15 @@ export function parsePositiveInt(value, fieldName = "value") {
         throw new AppError(`Invalid ${fieldName}`, 400);
     } 
     return num;
-}
+};
+
+export function validateId(paramName) {
+    return (req, res, next) => {
+        try {
+            parsePositiveInt(paramName, paramName);
+            next();
+        } catch {
+            next(error);
+        }
+    };
+};

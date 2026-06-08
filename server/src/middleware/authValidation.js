@@ -20,12 +20,14 @@ export const registerValidation = (req, res, next) => {
 }
 
 export const loginValidation = (req, res, next) => {
-    
+    const email = normalizeEmail(req.body.email);
 
-    const { email, password } = req.body;
+    const { password } = req.body;
 
     validateRequired(email, "email");
-    validateEmail(email, "email");
+    req.validated = {
+        email: validateEmail(email, "email")
+    }
 
     validateRequired(password, "password");
     validateStringLength(password, "password", 8, 200);

@@ -10,7 +10,7 @@ import jwt from "jsonwebtoken";
 const routerAuth = Router();
 
 routerAuth.post("/register", registerValidation, asyncHandler (async (req, res) => {
-    const email = normalizeEmail(req.body.email);
+    const { email } = req.validate;
     const { password, display_name } = req.body;
 
     const existingUser = await prisma.user.findUnique({
