@@ -3,6 +3,7 @@ import AppError from "../utils/AppError.js";
 const errorHandler = (err, req, res, next) => {
     console.log({
         message: err.message,
+        statusCode: err.statusCode,
         stack: err.stack
     });
 

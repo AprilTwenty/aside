@@ -1,25 +1,41 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+  // This is your Prisma schema file,
+  // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
+  // Get a free hosted Postgres database in seconds: `npx create-db`
 
-generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
-}
+  generator client {
+    provider = "prisma-client-js"
+  }
 
-datasource db {
-  provider = "postgresql"
-}
+  datasource db {
+    provider = "postgresql"
+  }
 
 
-model User {
-  id            Int      @id @default(autoincrement())
-  email         String   @unique
-  password_hash String?
-  display_name  String
-  provider      String   @default("local")
-  provider_id   String?
+  model User {
+    id            Int      @id @default(autoincrement())
+    email         String   @unique
+    password_hash String?
+    display_name  String
+    provider      String   @default("local")
+    provider_id   String?
 
-  created_at    DateTime @default(now())
-}
+    created_at    DateTime @default(now())
+    updated_at    DateTime? @updatedAt
+
+    save_item     SaveItem[]
+  }
+
+  model SaveItem {
+    id            Int      @id @default(autoincrement())
+
+    user_id       Int      
+    user          User     @relation(fields: [user_id], references: [id])
+
+    title         String
+    url           String
+    note          String?
+
+    created_at    DateTime @default(now())
+    updated_at    DateTime @updatedAt
+  }
