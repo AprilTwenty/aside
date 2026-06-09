@@ -1,5 +1,5 @@
 import { parsePositiveInt, validateRequired, validateStringLength, validateUrl } from "../utils/validator.js";
-import { AppError } from "../utils/AppError.js";
+import AppError from "../utils/AppError.js";
 
 export const createSaveValidation = (req, res, next) => {
     const { title, url, note } = req.body;
