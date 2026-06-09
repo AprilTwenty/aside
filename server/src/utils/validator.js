@@ -40,14 +40,3 @@ export function parsePositiveInt(value, fieldName = "value") {
     } 
     return num;
 };
-
-export function validateId(paramName) {
-    return (req, res, next) => {
-        try {
-            parsePositiveInt(paramName, paramName);
-            next();
-        } catch {
-            next(error);
-        }
-    };
-};

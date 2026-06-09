@@ -1,4 +1,5 @@
 import { parsePositiveInt, validateRequired, validateStringLength, validateUrl } from "../utils/validator.js";
+import { AppError } from "../utils/AppError.js";
 
 export const createSaveValidation = (req, res, next) => {
     const { title, url, note } = req.body;
@@ -46,17 +47,6 @@ export const validateSaveQuery = (req, res, next) => {
         next();
     } catch(error) {
         next(error);
-    }
-};
-
-export const validateSaveIdQuery = (req, res, next) => {
-    try {
-        req.validated = {
-            id: parsePositiveInt(req.params.id, "id")
-        }
-        next();
-    } catch (error) {
-        next(error)
     }
 };
 

@@ -2,9 +2,9 @@ import { Router } from "express";
 import asyncHandler from "../utils/asyncHandler.js";
 import authenticate from "../middleware/authenticate.js";
 import prisma from "../../prisma/client.js"
-import { createSaveValidation, validateSaveIdQuery, validateSaveQuery, validateSavePatch } from "../middleware/saveValidation.js";
-import { parsePositiveInt } from "../utils/validator.js";
+import { createSaveValidation, validateSaveQuery, validateSavePatch } from "../middleware/saveValidation.js";
 import AppError from "../utils/AppError.js";
+import { validateParamId } from "../middleware/commonValidation.js";
 
 const routerSaves = Router();
 
@@ -83,7 +83,7 @@ routerSaves.get("/", validateSaveQuery, asyncHandler(async(req, res) => {
     });
 }));
 
-routerSaves.get("/:id", validateSaveIdQuery, asyncHandler(async(req, res) => {
+routerSaves.get("/:id", validateParamId, asyncHandler(async(req, res) => {
     const id = req.validated.id;
     const save = await prisma.saveItem.findUnique({
         where: {
@@ -162,5 +162,28 @@ routerSaves.patch("/:id", authenticate, validateSavePatch, asyncHandler(async(re
     });
 }));
 
+routerSaves.delete("/:id", authenticate, validateParamId, asyncHandler(async(req, res) => {
+    const id = req.validated.id;
+    const existSave = await prisma.saveItem.findUnique({
+        where: {
+            id: id
+        }
+    })
+    if (!existSave) {
+        throw new AppError(`Save id ${id} not found`, 404);
+    }
+    if (existSave.user_id !== req.user.id) {
+        throw new AppError(`Forbidden`, 403);
+    }
+    await prisma.saveItem.delete({
+        where: {
+            id : id
+        }
+    });
+    return res.status(200).json({
+        success: true,
+        message: "Save deleted successfully"
+    });
+}));
 
 export default routerSaves;
