@@ -49,7 +49,7 @@ export const validateSaveQuery = (req, res, next) => {
     }
 };
 
-export const validateSaveId = (req, res, next) => {
+export const validateSaveIdQuery = (req, res, next) => {
     try {
         req.validated = {
             id: parsePositiveInt(req.params.id, "id")
@@ -59,3 +59,27 @@ export const validateSaveId = (req, res, next) => {
         next(error)
     }
 };
+
+export const validateSavePatch = (req, res, next) => {
+    try {
+        req.validated ??= {};
+        const { title, url, note } = req.body;
+        req.validated.id = parsePositiveInt(req.params.id, "id");
+        if (title !== undefined) {
+            validateStringLength(title, "title", 3, 200);
+            req.validated.title = title;
+        }
+        if (url !== undefined) {
+            validateUrl(url, "url");
+            req.validated.url = url;
+        }
+        if (note !== undefined) {
+            validateStringLength(note, "note", 0, 5000);
+            req.validated.note = note;
+        }
+
+        next();
+    } catch (error) {
+        next(error);
+    }
+}

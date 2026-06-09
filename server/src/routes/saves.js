@@ -2,8 +2,9 @@ import { Router } from "express";
 import asyncHandler from "../utils/asyncHandler.js";
 import authenticate from "../middleware/authenticate.js";
 import prisma from "../../prisma/client.js"
-import { createSaveValidation, validateSaveId, validateSaveQuery } from "../middleware/saveValidation.js";
+import { createSaveValidation, validateSaveIdQuery, validateSaveQuery, validateSavePatch } from "../middleware/saveValidation.js";
 import { parsePositiveInt } from "../utils/validator.js";
+import AppError from "../utils/AppError.js";
 
 const routerSaves = Router();
 
@@ -82,7 +83,7 @@ routerSaves.get("/", validateSaveQuery, asyncHandler(async(req, res) => {
     });
 }));
 
-routerSaves.get("/:id", validateSaveId, asyncHandler(async(req, res) => {
+routerSaves.get("/:id", validateSaveIdQuery, asyncHandler(async(req, res) => {
     const id = req.validated.id;
     const save = await prisma.saveItem.findUnique({
         where: {
@@ -109,6 +110,54 @@ routerSaves.get("/:id", validateSaveId, asyncHandler(async(req, res) => {
             note: save.note,
             created_at: save.created_at,
             updated_at: save.updated_at
+        }
+    });
+}));
+
+routerSaves.patch("/:id", authenticate, validateSavePatch, asyncHandler(async(req, res) => {
+    const { id, title, url, note } = req.validated;
+    if (title === undefined && url === undefined && note === undefined) {
+        throw new AppError(`At least one field is required`, 400);
+    }
+    const saveChange = {
+        ...(title !== undefined && { title: title }),
+        ...(url !== undefined && { url: url }),
+        ...(note !== undefined && { note: note }),
+    };
+    const existSave = await prisma.saveItem.findUnique({
+        where: {
+            id
+        }
+    });
+    if (!existSave) {
+        throw new AppError(`Save id ${id} not found`, 404);
+    }
+    if (existSave.user_id !== req.user.id) {
+        throw new AppError(`Forbidden`, 403);
+    }
+    const savePatch = await prisma.saveItem.update({
+        where: {
+            id: id
+        },
+        data: saveChange,
+        include:{
+            user: {
+                select: {
+                    display_name: true
+                }
+            }
+        }
+    });
+    return res.status(200).json({
+        success: true,
+        data: {
+            id: savePatch.id,
+            user: savePatch.user.display_name,
+            title: savePatch.title,
+            url: savePatch.url,
+            note: savePatch.note,
+            created_at: savePatch.created_at,
+            updated_at: savePatch.updated_at
         }
     });
 }));
