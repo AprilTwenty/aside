@@ -3,7 +3,8 @@ import { normalizeDisplayName, normalizeEmail } from "../utils/sanitizer.js";
 import { validateEmail, validateRequired, validateStringLength } from "../utils/validator.js";
 
 export const registerValidation = (req, res, next) => {
-    req.body.email = normalizeEmail(req.body.email);
+    req.validated ??= {};
+    req.validated.email = normalizeEmail(req.body.email);
     req.body.display_name = normalizeDisplayName(req.body.display_name);
 
     const { email, password, display_name } = req.body;

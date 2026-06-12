@@ -1,0 +1,65 @@
+### Login
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@mail.com",
+  "password": "12345678"
+}
+###
+> {% 
+client.global.set("token", response.body.token);
+%}
+
+### Register
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{
+    "email": "test3@mail.com",
+    "password": "12345678",
+    "display_name": "test"
+}
+
+### /me
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QG1haWwuY29tIiwiZGlzcGxheV9uYW1lIjoidGVzdCB1c2VyIiwiaWF0IjoxNzgxMjU3NDY4LCJleHAiOjE3ODEyNTgzNjh9.Nl20ZJrZz0i4okFVSziRzUYK-jqm-womVx5xO2URgCc
+
+GET http://localhost:4000/auth/me
+Authorization: Bearer {{token}}
+
+### Get Saves
+GET http://localhost:4000/saves
+
+### Get Saves ?title=xxx
+GET http://localhost:4000/saves?title=test
+
+### Get Save By Id
+GET http://localhost:4000/saves/1
+
+### Post Save
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QG1haWwuY29tIiwiZGlzcGxheV9uYW1lIjoidGVzdCB1c2VyIiwiaWF0IjoxNzgxMjU3NDY4LCJleHAiOjE3ODEyNTgzNjh9.Nl20ZJrZz0i4okFVSziRzUYK-jqm-womVx5xO2URgCc
+POST  http://localhost:4000/saves
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "title": "test xx",
+    "url": "http://www.test.com"
+}
+
+### Patch Save /:id
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QG1haWwuY29tIiwiZGlzcGxheV9uYW1lIjoidGVzdCB1c2VyIiwiaWF0IjoxNzgxMjU3NDY4LCJleHAiOjE3ODEyNTgzNjh9.Nl20ZJrZz0i4okFVSziRzUYK-jqm-womVx5xO2URgCc
+PATCH http://localhost:4000/saves/7
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "title": "test patch",
+    "url": "http://www.test.com"
+}
+
+### Delete Save /:id
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QG1haWwuY29tIiwiZGlzcGxheV9uYW1lIjoidGVzdCB1c2VyIiwiaWF0IjoxNzgxMjU3NDY4LCJleHAiOjE3ODEyNTgzNjh9.Nl20ZJrZz0i4okFVSziRzUYK-jqm-womVx5xO2URgCc
+DELETE http://localhost:4000/saves/7
+Authorization: Bearer {{token}}
+Content-Type: application/json
