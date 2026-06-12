@@ -36,6 +36,8 @@
     url           String
     note          String?
 
+    source_domain String?
+    
     created_at    DateTime @default(now())
     updated_at    DateTime @updatedAt
   }

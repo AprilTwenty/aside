@@ -9,16 +9,18 @@ import { validateParamId } from "../middleware/commonValidation.js";
 const routerSaves = Router();
 
 routerSaves.post("/", authenticate, createSaveValidation, asyncHandler(async(req, res) => {
-    const { title, url, note } = req.body;
+    const { title, url, note, hostname } = req.validated;
     const user = req.user;
     const createdPost = await prisma.saveItem.create({
         data: {
             user_id: user.id,
             title,
             url,
-            note
+            note,
+            ...(hostname !== undefined && { source_domain: hostname })
+            
         }
-    })
+    });
     return res.status(201).json({
         success: true,
         message: "Created post successfully",
@@ -31,7 +33,8 @@ routerSaves.get("/", validateSaveQuery, asyncHandler(async(req, res) => {
     const safeOrder = order === "asc" ? "asc" : "desc";
     const allowedSortField = [
         "title",
-        "created_at"
+        "created_at",
+        "source_domain"
     ];
     const safeSort = allowedSortField.includes(sort) ? sort : "created_at";
     const whereClause = {
@@ -68,6 +71,7 @@ routerSaves.get("/", validateSaveQuery, asyncHandler(async(req, res) => {
         title: item.title,
         url: item.url,
         note: item.note,
+        source_domain: item.source_domain,
         created_at: item.created_at,
         updated_at: item.updated_at
     }));
@@ -108,6 +112,7 @@ routerSaves.get("/:id", validateParamId, asyncHandler(async(req, res) => {
             title: save.title,
             url: save.url,
             note: save.note,
+            source_domain: save.source_domain,
             created_at: save.created_at,
             updated_at: save.updated_at
         }
@@ -115,14 +120,15 @@ routerSaves.get("/:id", validateParamId, asyncHandler(async(req, res) => {
 }));
 
 routerSaves.patch("/:id", authenticate, validateSavePatch, asyncHandler(async(req, res) => {
-    const { id, title, url, note } = req.validated;
-    if (title === undefined && url === undefined && note === undefined) {
+    const { id, title, url, note, hostname } = req.validated;
+    if (title === undefined && url === undefined && note === undefined && hostname === undefined) {
         throw new AppError(`At least one field is required`, 400);
     }
     const saveChange = {
         ...(title !== undefined && { title: title }),
         ...(url !== undefined && { url: url }),
         ...(note !== undefined && { note: note }),
+        ...(hostname !== undefined && { source_domain: hostname })
     };
     const existSave = await prisma.saveItem.findUnique({
         where: {
@@ -156,6 +162,7 @@ routerSaves.patch("/:id", authenticate, validateSavePatch, asyncHandler(async(re
             title: savePatch.title,
             url: savePatch.url,
             note: savePatch.note,
+            source_domain: savePatch.source_domain,
             created_at: savePatch.created_at,
             updated_at: savePatch.updated_at
         }

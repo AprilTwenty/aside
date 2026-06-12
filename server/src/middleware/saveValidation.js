@@ -2,17 +2,25 @@ import { parsePositiveInt, validateRequired, validateStringLength, validateUrl }
 import AppError from "../utils/AppError.js";
 
 export const createSaveValidation = (req, res, next) => {
+    req.validated ??= {}
+
     const { title, url, note } = req.body;
     
     validateRequired(title, "title");
     validateStringLength(title, "title", 3, 200);
+    req.validated.title = title;
 
     validateRequired(url, "url");
     validateUrl(url, "url");
+    req.validated.url = url;
 
-    if (note) {
-        validateStringLength(note, "note", 1, 5000)
+    if (note !== undefined) {
+        validateStringLength(note, "note", 0, 5000)
+        req.validated.note = note;
     }
+    const hostname = new URL(url).hostname.replace(/^www\./, "");
+    req.validated.hostname = hostname;
+
     next();
 }
 
@@ -27,7 +35,7 @@ export const validateSaveQuery = (req, res, next) => {
            req.validated.limit = Math.min(parsePositiveInt(limit, "limit"), 500);
         }
         if (sort !== undefined) {
-            if (!["title", "created_at"].includes(sort)) {
+            if (!["title", "created_at", "source_domain"].includes(sort)) {
                 throw new AppError(`Invalid sort field`, 400);
             }
             req.validated.sort = sort;
@@ -61,7 +69,9 @@ export const validateSavePatch = (req, res, next) => {
         }
         if (url !== undefined) {
             validateUrl(url, "url");
+
             req.validated.url = url;
+            req.validated.hostname = new URL(url).hostname.replace(/^www\./, "");
         }
         if (note !== undefined) {
             validateStringLength(note, "note", 0, 5000);
