@@ -1,3 +1,5 @@
+import SaveList from "../../components/saves/SaveList";
+
 function SavePage() {
     return (
         <div>
@@ -6,7 +8,7 @@ function SavePage() {
             </h1>
             <SaveList />
         </div>
-    )
+    );
 }
 
 export default SavePage;
