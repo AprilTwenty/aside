@@ -1,0 +1,25 @@
+.layout {
+    display: flex;
+    min-height: 100vh;
+    min-width: 240px;
+
+    margin: 0 auto;
+}
+
+.layout__content{
+
+    flex:1;
+
+    display:flex;
+    justify-content:center;
+
+    overflow-y:auto;
+
+}
+
+.layout__right {
+    width: 320px;
+    min-width: 240px;
+    padding: 1rem;
+    border-left: 1px solid #e5e7eb;
+}

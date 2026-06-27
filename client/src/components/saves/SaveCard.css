@@ -1,0 +1,94 @@
+.save-card {
+    display: flex;
+    flex-direction: column;
+
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+
+    overflow: hidden;
+    margin-bottom: 4px;
+    transition: 0.2s;
+}
+
+.save-card:hover {
+    transform: translateY(-2px);
+}
+.save-card__preview {
+    aspect-ratio: 16 / 9;
+
+    background: #f3f4f6;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.save-card__preview-placeholder {
+    color: #9ca3af;
+}
+
+.save-card__body {
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.save-card__title {
+    margin: 0;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    color: #111827;
+}
+
+.save-card__note {
+    padding: 0.75rem;
+
+    background: #f8fafc;
+
+    border-left: 4px solid #3b82f6;
+    border-radius: 8px;
+
+    line-height: 1.5;
+
+    color: #374151;
+}
+
+.save-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+.save-card__url {
+    color: #2563eb;
+
+    text-decoration: none;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.save-card__actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.save-card__button {
+    padding: 0.6rem 1rem;
+
+    border-radius: 8px;
+
+    background: #2563eb;
+    color: white;
+
+    text-decoration: none;
+}

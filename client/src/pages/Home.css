@@ -1,0 +1,6 @@
+.home {
+    display: flex;
+    max-width: 1200px;
+    min-width: 240px;
+    margin: 0 auto;
+}

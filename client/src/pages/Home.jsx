@@ -1,19 +1,19 @@
 import { useEffect } from "react";
 import api from "../api/api.js"
 
+import Sidebar from "../components/layout/Sidebar.jsx";
+import SavePage from "./saves/SavesPage.jsx";
+import FeedPage from "./FeedPage.jsx";
+
+import "./Home.css";
+
 function Home() {
-    useEffect(() => {
-        async function fetchSaves() {
-            const response = await api.get("/saves");
-            console.log(response.data);
-        }
-        fetchSaves();
-    }, []);
+
 
     return (
-        <div>
-            Home
-        </div>
+        <main className="home">
+                <FeedPage />
+        </main>
     );
 }
 

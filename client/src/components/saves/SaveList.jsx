@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../../api/api.js";
 import SaveCard from "./SaveCard.jsx";
+import "./SaveList.css";
 
 function SaveList() {
     const [saves, setSaves] = useState([]);
@@ -15,14 +16,14 @@ function SaveList() {
         fetchSaves();
     }, []);
     return (
-        <>
+        <section className="save-list">
             {saves.map(save => (
                 <SaveCard
                 key={save.id}
                 save={save}
                 />
             ))}
-        </>
+        </section>
     );
 }
 

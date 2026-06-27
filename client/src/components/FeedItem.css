@@ -1,0 +1,65 @@
+.feed-item{
+
+    display:flex;
+    flex-direction:column;
+
+    min-height:100vh;
+
+    padding:24px 0;
+
+}
+
+.feed-item__player{
+
+    width:100%;
+
+    display:flex;
+    justify-content:center;
+
+}
+
+.feed-item__player iframe{
+
+    width:100%;
+
+    max-width:420px;
+
+    aspect-ratio:9/16;
+
+    border:none;
+
+    border-radius:20px;
+
+    background:#111;
+
+}
+
+.feed-item__info{
+
+    max-width:420px;
+
+    width:100%;
+
+    margin:20px auto 0;
+
+}
+
+.feed-item__note{
+
+    font-size:18px;
+
+    line-height:1.6;
+
+    margin-bottom:16px;
+
+}
+
+.feed-item__footer{
+
+    display:flex;
+
+    gap:8px;
+
+    color:#777;
+
+}
