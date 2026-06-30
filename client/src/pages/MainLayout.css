@@ -2,19 +2,14 @@
     display: flex;
     min-height: 100vh;
     min-width: 240px;
-
     margin: 0 auto;
 }
 
 .layout__content{
-
     flex:1;
-
     display:flex;
     justify-content:center;
-
     overflow-y:auto;
-
 }
 
 .layout__right {

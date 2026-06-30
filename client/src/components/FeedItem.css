@@ -1,65 +1,59 @@
 .feed-item{
-
+    width:100%;
+    max-width:500px;
+    min-height:100vh;
     display:flex;
     flex-direction:column;
+    justify-content:center;
+    padding:40px 0;
+}
 
-    min-height:100vh;
+.feed-item__preview{
+    display:flex;
+    justify-content:center;
+}
 
-    padding:24px 0;
-
+.feed-item__preview iframe{
+    width:100%;
+    aspect-ratio:9 / 16;
+    border:none;
+    border-radius:18px;
 }
 
 .feed-item__player{
-
     width:100%;
-
-    display:flex;
-    justify-content:center;
-
+    max-width:420px;
+    aspect-ratio:9/16;
+    overflow:hidden;
+    border-radius:18px;
+    background:black;
 }
 
 .feed-item__player iframe{
-
     width:100%;
-
-    max-width:420px;
-
-    aspect-ratio:9/16;
-
+    height:100%;
     border:none;
-
-    border-radius:20px;
-
-    background:#111;
-
 }
 
 .feed-item__info{
-
     max-width:420px;
-
     width:100%;
-
     margin:20px auto 0;
+}
 
+.feed-item__player{
+    max-width:420px;
 }
 
 .feed-item__note{
-
     font-size:18px;
-
     line-height:1.6;
-
     margin-bottom:16px;
-
 }
 
 .feed-item__footer{
-
     display:flex;
-
     gap:8px;
-
     color:#777;
-
 }
+

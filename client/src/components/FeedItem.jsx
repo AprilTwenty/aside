@@ -1,17 +1,35 @@
+import { parseVideoUrl } from "../utils/video";
 import "./FeedItem.css";
 
 function FeedItem({ save }) {
+    const parsedUrl = parseVideoUrl(save.url);
+    console.table(parsedUrl);
     return (
         <article className="feed-item">
 
             <div className="feed-item__preview">
+                <div className="feed-item__player">
                 {/* hardcode test v. only */}
-                <iframe 
-                    src="https://www.youtube.com/embed/QBAQHh_zVCw"
-                    title="Youtube Video"
-                    allow="accelerometer; autoplay; clipboard-wite; encrypted-media; gyrosocope; picture-in-picture;"
-                    allowFullScreen
-                />
+                {parsedUrl?.platform === "youtube" && (
+
+                
+                    <iframe 
+                        src={`https://www.youtube.com/embed/${parsedUrl.id}`}
+                        title="Youtube Video"
+                        allow="accelerometer; autoplay; clipboard-wite; encrypted-media; gyrosocope; picture-in-picture;"
+                        allowFullScreen
+                    />
+                )}
+                
+                {parsedUrl?.platform === "tiktok" && (
+                    <iframe
+                        src={`https://www.tiktok.com/embed/v2/${parsedUrl.id}`}
+                        title="Tiktok Video"
+                        allow="accelerometer; autoplay; clipboard-wite; encrypted-media; gyrosocope; picture-in-picture;"
+                        allowFullScreen
+                    />
+                )}
+                </div>
 
             </div>
 
