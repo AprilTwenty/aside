@@ -1,0 +1,22 @@
+.youtube-player{
+
+    width:100%;
+
+    max-width: 340px;
+    margin:auto;
+
+}
+
+.youtube-player iframe{
+
+    display:block;
+
+    width:100%;
+    aspect-ratio:9/16;
+
+    border:none;
+    border-radius:18px;
+
+    background:#000;
+
+}

@@ -1,0 +1,37 @@
+.media-placeholder{
+
+    width:100%;
+    max-width:340px;
+    aspect-ratio:9/16;
+    margin:auto;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:18px;
+
+    background:#111;
+
+    color:#fff;
+
+}
+
+.media-placeholder__icon{
+
+    font-size:64px;
+
+    opacity:.8;
+
+}
+
+.media-placeholder__text{
+
+    margin-top:16px;
+
+    font-size:15px;
+
+    opacity:.7;
+
+}

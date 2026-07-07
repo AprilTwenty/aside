@@ -1,0 +1,17 @@
+.feed-info{
+    max-width:520px;
+    width:100%;
+    margin:20px auto 0;
+}
+
+.feed-note{
+    font-size:18px;
+    line-height:1.6;
+    margin-bottom:16px;
+}
+
+.feed-footer{
+    display:flex;
+    gap:8px;
+    color:#777;
+}
