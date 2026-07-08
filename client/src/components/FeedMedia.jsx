@@ -5,7 +5,7 @@ import YoutubePlayer from "./YoutubePlayer";
 import "./FeedMedia.css";
 import MediaPlaceholder from "./MediaPlaceholder";
 
-function FeedMedia({ url, active }) {
+function FeedMedia({ url, active, focused }) {
     const video = parseVideoUrl(url);
     if (!video) {
         return (
@@ -22,11 +22,11 @@ function FeedMedia({ url, active }) {
     } else {
         switch (video.platform) {
             case "youtube":
-                content = <YoutubePlayer id={video.id} />;
+                content = <YoutubePlayer id={video.id} active={focused} />;
                 break;
 
             case "tiktok":
-                content = <TiktokPlayer id={video.id} />;
+                content = <TiktokPlayer id={video.id} active={focused} />;
                 break;
 
             default:
