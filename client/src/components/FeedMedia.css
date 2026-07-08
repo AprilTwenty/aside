@@ -4,3 +4,23 @@
     display:flex;
     justify-content:center;
 }
+
+.feed-media__frame{
+
+    width:100%;
+
+    display:flex;
+    justify-content:center;
+
+    border-radius:18px;
+    overflow:hidden;
+
+}
+
+.feed-media__frame--youtube{
+    width:340px;
+}
+
+.feed-media__frame--tiktok{
+    width:390px;
+}

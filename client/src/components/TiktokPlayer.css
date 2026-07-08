@@ -1,8 +1,6 @@
 .tiktok-player{
     width:100%;
-    max-width:520px;
 
-    margin:auto;
 
     display:flex;
     justify-content:center;

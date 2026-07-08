@@ -7,6 +7,7 @@ import "./FeedPage.css";
 function FeedPage() {
     const [ saves, setSaves ] = useState([]);
     const [ loading, setLoading ] = useState(true);
+    const [currentIndex,setCurrentIndex] = useState(0);
 
     useEffect(() => {
         async function fetchSaves() {
@@ -29,10 +30,13 @@ function FeedPage() {
 
     return (
         <div className="feed-page">
-            {saves.map(save => (
+            {saves.map((save, index) => (
                 <FeedItem   
                     key={save.id}
                     save={save}
+                    index={index}
+                    currentIndex={currentIndex}
+                    setCurrentIndex={setCurrentIndex}
                 />
             ))}
         </div>
