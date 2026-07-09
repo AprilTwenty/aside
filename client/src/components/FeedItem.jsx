@@ -43,7 +43,7 @@ function FeedItem({ save, index, currentIndex, setCurrentIndex }) {
                 </h2>
             )}
 
-            <FeedMedia url={save.url} active={Math.abs(index-currentIndex)<=1} focused={index===currentIndex} />
+            <FeedMedia url={save.url} active={index===currentIndex} focused={index===currentIndex} />
             <FeedInfo note={save.note} domain={save.source_domain} user={save.user} />
         </article>
     );
