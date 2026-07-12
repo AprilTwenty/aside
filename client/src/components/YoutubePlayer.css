@@ -16,5 +16,6 @@
     border-radius:18px;
 
     background:#000;
+    pointer-events:none;
 
 }

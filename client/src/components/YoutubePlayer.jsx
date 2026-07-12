@@ -29,7 +29,7 @@ function YoutubePlayer({ id, active }) {
         <div className="youtube-player">
             <iframe
                 ref={iframeRef}
-                src={`https://www.youtube.com/embed/${id}?enablejsapi=1&origin=${window.location.origin}`}
+                src={`https://www.youtube.com/embed/${id}?enablejsapi=1&origin=${window.location.origin}&autoplay=1&mute=1`}
                 title="YouTube player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

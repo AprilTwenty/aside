@@ -4,6 +4,7 @@ import YoutubePlayer from "./YoutubePlayer";
 
 import "./FeedMedia.css";
 import MediaPlaceholder from "./MediaPlaceholder";
+import YoutubeThumbnail from "./YoutubeThumbnail";
 
 function FeedMedia({ url, active, focused }) {
     const video = parseVideoUrl(url);
@@ -18,7 +19,11 @@ function FeedMedia({ url, active, focused }) {
     }
     let content;
     if (!active) {
-        content = <MediaPlaceholder platform={video.platform} />;
+        if (video.platform === "youtube") {
+            content = <YoutubeThumbnail id={video.id} />;
+        } else {
+            content = <MediaPlaceholder platform={video.platform} />;
+        }
     } else {
         switch (video.platform) {
             case "youtube":
